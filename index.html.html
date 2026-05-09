@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Mother's Day 💜</title>
+<style>
+body{margin:0;font-family:'Segoe UI',sans-serif;background:linear-gradient(180deg,#f6e6ff,#ffe6f2,#fff0f6);overflow-x:hidden;text-align:center}
+h1{margin-top:60px;font-size:3em;color:#a64ca6}
+h2{color:#a64ca6}.container{padding:30px;display:none}
+
+/* hearts */
+.heart{position:fixed;bottom:-20px;font-size:20px;animation:float 8s linear infinite;color:#d6a8ff}
+@keyframes float{0%{transform:translateY(0)}100%{transform:translateY(-110vh) translateX(50px);opacity:0}}
+
+/* welcome */
+.welcome{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(120deg,#ffd6ec,#e6ccff,#ffe0f0);z-index:5}
+.startBtn{font-size:22px;padding:18px 35px;border:none;border-radius:30px;background:#ff9ecb;color:white;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+
+/* BIG BALLOONS LINED SIDE BY SIDE */
+.balloonWrap{margin-top:30px;display:flex;justify-content:center;gap:30px;height:260px}
+.balloon{position:relative;width:140px;height:140px;border-radius:50%;cursor:pointer;color:white;font-weight:bold;display:flex;align-items:center;justify-content:center;animation:floatBalloon 5s ease-in-out infinite alternate;box-shadow:inset -10px -14px rgba(0,0,0,0.1);font-size:26px}
+
+/* flower on top */
+.flower{position:absolute;top:-35px;font-size:30px}
+
+/* balloon knot */
+.balloon::before{content:"";position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:14px;height:14px;background:inherit;border-radius:3px}
+
+/* balloon string */
+.balloon::after{content:"";position:absolute;bottom:-140px;left:50%;transform:translateX(-50%);width:2px;height:140px;background:#999}
+
+@keyframes floatBalloon{from{transform:translateY(0)}to{transform:translateY(-70px)}}
+
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-top:20px}
+.gallery img{width:100%;border-radius:20px;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+
+.popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);justify-content:center;align-items:center}
+.popup-content{background:white;padding:30px;border-radius:20px;width:80%;max-width:500px;font-size:20px;color:#a64ca6;animation:pop .4s ease}
+@keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+</style>
+</head>
+<body>
+
+<div class="welcome" id="welcome">
+  <h1>Happy Mother's Day Surprise 🌸💐</h1>
+  <p>Tap to begin 💜</p>
+  <button class="startBtn" onclick="startSite()">Open Surprise</button>
+</div>
+
+<h1>Happy Mother's Day 💐</h1>
+<div class="container" id="mainContent">
+  <h2>Tap the balloons 🎈</h2>
+  <div class="balloonWrap" id="balloonWrap"></div>
+
+  <h2>Our Memories 📸</h2>
+  <div class="gallery">
+    <img src="photo1.jpg">
+  <img src="photo2.jpg">
+  <img src="photo3.jpg">
+  <img src="photo4.jpg">
+  <img src="photo5.jpg">
+  <img src="photo6.jpg">
+  </div>
+</div>
+
+<div class="popup" id="popup">
+  <div class="popup-content" id="popupText" onclick="closePopup()"></div>
+</div>
+
+<script>
+function startSite(){document.getElementById('welcome').style.display='none';document.getElementById('mainContent').style.display='block';createBalloons();}
+
+const messages=[
+`Mom, you are the quiet magic behind every good thing in my life.\nYour love is the place I return to, no matter how far I go.`,
+`You didn’t just give me life—you taught me how to live it with kindness, courage, and grace.\nI am who I am because of you.`,
+`Home isn’t a place… it’s your hug, your voice, and your love. Thank you for being my safest space always.`,
+`Mumma, no matter how old I grow, I will always need your love and your hug.`,
+`Mom, your love has been my compass in every storm and sunshine.`,
+`Mumma, every dream we chase began with the wings you gave us 💐`
+];
+
+const colors=["#ff9ecb","#ffd166","#caffbf","#a0c4ff","#e4c1f9","#ffc6ff"];
+
+function createBalloons(){
+  const wrap=document.getElementById('balloonWrap');
+  for(let i=0;i<6;i++){
+    let b=document.createElement('div');
+    b.className='balloon';
+    b.style.background=colors[i];
+    b.innerHTML="<div class='flower'>🌸</div>"+(i+1);
+    b.onclick=()=>showMsg(i);
+    wrap.appendChild(b);
+  }
+}
+
+function showMsg(i){document.getElementById('popupText').innerText=messages[i];document.getElementById('popup').style.display='flex'}
+function closePopup(){document.getElementById('popup').style.display='none'}
+
+function createHeart(){const h=document.createElement('div');h.className='heart';h.style.left=Math.random()*100+'vw';h.innerText='💜';document.body.appendChild(h);setTimeout(()=>h.remove(),8000)}
+setInterval(createHeart,300);
+</script>
+</body>
+</html>
